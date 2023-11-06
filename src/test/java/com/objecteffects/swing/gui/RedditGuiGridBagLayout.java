@@ -78,12 +78,12 @@ public class RedditGuiGridBagLayout {
 
         textArea.setFont(fontName);
 
-        log.debug("gridy: {}", gbc.gridy);
+        log.debug("gridy: {}", Integer.valueOf(gbc.gridy));
         gbc.gridx = 0;
         gbc.gridy = users.size() + 2;
         gbc.gridwidth = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        log.debug("gridy: {}", gbc.gridy);
+        log.debug("gridy: {}", Integer.valueOf(gbc.gridy));
 
         mainPanel.add(scrollPane, gbc);
 
