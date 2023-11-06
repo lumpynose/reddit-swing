@@ -11,8 +11,10 @@ class ListenerDownVote implements ActionListener {
     private final static Logger log = LogManager
             .getLogger(ListenerDownVote.class);
 
-    private final Set<String> downVoteUsers = ProcessUsers.getDownVoteUsers();
-    private final Set<String> upVoteUsers = ProcessUsers.getUpVoteUsers();
+    private final Set<String> downVoteUsers =
+            ProcessUsers.getDownVoteUsers();
+    private final Set<String> upVoteUsers =
+            ProcessUsers.getUpVoteUsers();
 
     @Override
     public void actionPerformed(final ActionEvent e) {

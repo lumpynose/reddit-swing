@@ -14,8 +14,8 @@ import javax.swing.ButtonGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.objecteffects.reddit.http.HidePosts;
-import com.objecteffects.reddit.http.UpVotePosts;
+import com.objecteffects.reddit.method.HidePostsJsonPath;
+import com.objecteffects.reddit.method.UpVotePostsJsonPath;
 import com.objecteffects.swing.main.AppConfig;
 
 class ListenerProcess implements ActionListener {
@@ -94,26 +94,28 @@ class ListenerProcess implements ActionListener {
     }
 
     private void processHidePosts(final Set<String> hideUsers) {
-//        final HidePosts hidePosts = new HidePosts();
+        final HidePostsJsonPath hidePosts = new HidePostsJsonPath();
 
         for (final String user : hideUsers) {
             log.debug("hide: {}", user);
             try {
-                String after = HidePosts.hidePosts(user, POSTS_COUNT, null);
+                String after = hidePosts.hidePosts(user, POSTS_COUNT,
+                        null);
 
                 for (int i = 0; i < LOOP_COUNT; i++) {
                     if (after == null) {
                         break;
                     }
 
-                    after = HidePosts.hidePosts(user, POSTS_COUNT, after);
+                    after = hidePosts.hidePosts(user, POSTS_COUNT,
+                            after);
                 }
 
                 final String date = date();
 
                 MessagesPanel.append(
-                        String.format("%s: hide posts done for %s\n", date,
-                                user));
+                        String.format("%s: hide posts done for %s\n",
+                                date, user));
             }
             catch (IOException | InterruptedException ex) {
                 log.warn("hidePosts exception: ", ex);
@@ -130,20 +132,23 @@ class ListenerProcess implements ActionListener {
     }
 
     private void processUpVotes(final Set<String> upVoteUsers) {
-//        final UpVotePosts upVotePosts = new UpVotePosts();
+        final UpVotePostsJsonPath upVotePosts =
+                new UpVotePostsJsonPath();
 
         for (final String user : upVoteUsers) {
             log.debug("up vote: {}", user);
 
             try {
-                String after = UpVotePosts.upVotePosts(user, POSTS_COUNT, null);
+                String after = upVotePosts.upVotePosts(user,
+                        POSTS_COUNT, null);
 
                 for (int i = 0; i < LOOP_COUNT; i++) {
                     if (after == null) {
                         break;
                     }
 
-                    after = UpVotePosts.upVotePosts(user, POSTS_COUNT, after);
+                    after = upVotePosts.upVotePosts(user,
+                            POSTS_COUNT, after);
                 }
 
                 final String date = date();
